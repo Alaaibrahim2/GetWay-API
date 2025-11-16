@@ -1,0 +1,44 @@
+# Kubernetes Gateway API Demo Repository
+
+
+
+## 🚀 Deployment Manifests
+
+### **manifests/apps/app1.yaml**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: prod
+  template:
+    metadata:
+      labels:
+        app: prod
+    spec:
+      containers:
+      - name: simple-webserver
+        image: menamagdyhalem/simple-webserver
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-svc
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: prod
+  ports:
+  - port: 2000
+    targetPort: 3000
+```
+
